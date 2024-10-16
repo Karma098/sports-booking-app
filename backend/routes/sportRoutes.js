@@ -1,10 +1,8 @@
-// routes/sports.js
 const express = require("express");
 const router = express.Router();
 const Sport = require("../models/Sport");
 const authMiddleware = require("../middlewares/authMiddleware");
 const adminMiddleware = require("../middlewares/adminMiddleware");
-// Create a new sport (admin only)
 router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   const { name, center } = req.body;
 
@@ -17,7 +15,6 @@ router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
-// Get all sports
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const sports = await Sport.find();
@@ -27,7 +24,6 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
-// Update a sport (admin only)
 router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   const { name } = req.body;
 
@@ -43,7 +39,6 @@ router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
-// Delete a sport (admin only)
 router.delete("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     await Sport.findByIdAndDelete(req.params.id);

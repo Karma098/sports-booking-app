@@ -1,11 +1,9 @@
-// routes/courts.js
 const express = require("express");
 const router = express.Router();
 const Court = require("../models/Court");
 const authMiddleware = require("../middlewares/authMiddleware");
 const adminMiddleware = require("../middlewares/adminMiddleware");
 
-// Add a new court (admin only)
 router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   const { name, sport, center } = req.body;
   try {
