@@ -4,7 +4,8 @@ const cors = require("cors");
 require("dotenv").config();
 const userRoutes = require("./routes/userRoutes");
 const centerRoutes = require("./routes/centerRoutes");
-const courtsRouter = require("./routes/courts");
+const courtsRouter = require("./routes/courtRoutes");
+const bookingsRouter = require("./routes/bookingRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/centers", centerRoutes);
 app.use("/courts", courtsRouter);
+app.use("/bookings", bookingsRouter);
 
 mongoose
   .connect(process.env.MONGODB_URI, {

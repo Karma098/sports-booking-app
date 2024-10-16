@@ -5,8 +5,7 @@ const adminMiddleware = require("../middlewares/adminMiddleware"); // Import adm
 
 const router = express.Router();
 
-// Get all centers (public)
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
     const centers = await Center.find().populate("sports");
     res.status(200).json(centers);
@@ -15,7 +14,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Create a new center (admin only)
 router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   const { name, location } = req.body;
 
@@ -28,7 +26,6 @@ router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
-// Update a center (admin only)
 router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   const { name, location } = req.body;
 
@@ -46,7 +43,6 @@ router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
-// Delete a center (admin only)
 router.delete("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const deletedCenter = await Center.findByIdAndDelete(req.params.id);

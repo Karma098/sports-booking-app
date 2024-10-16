@@ -12,15 +12,14 @@ const authMiddleware = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Attach user data to the request object
+    req.user = decoded;
 
-    // Check if the user exists in the database and check for isAdmin
     const user = await User.findById(req.user.id);
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
 
-    req.user.isAdmin = user.isAdmin; // Attach isAdmin flag to req.user
+    req.user.isAdmin = user.isAdmin;
     next();
   } catch (error) {
     res.status(400).json({ message: "Invalid token." });

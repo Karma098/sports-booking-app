@@ -2,10 +2,11 @@
 const express = require("express");
 const router = express.Router();
 const Court = require("../models/Court");
-const authMiddleware = require("../middleware/auth");
+const authMiddleware = require("../middlewares/authMiddleware");
+const adminMiddleware = require("../middlewares/adminMiddleware");
 
 // Add a new court (admin only)
-router.post("/", authMiddleware, async (req, res) => {
+router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   const { name, sport, center } = req.body;
   try {
     const newCourt = new Court({ name, sport, center });
@@ -17,7 +18,7 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 // Get all courts
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
     const courts = await Court.find().populate("sport center");
     res.status(200).json(courts);
@@ -27,7 +28,7 @@ router.get("/", async (req, res) => {
 });
 
 // Update a court (admin only)
-router.put("/:id", authMiddleware, async (req, res) => {
+router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   const { name, sport, center } = req.body;
   try {
     const updatedCourt = await Court.findByIdAndUpdate(
@@ -42,7 +43,7 @@ router.put("/:id", authMiddleware, async (req, res) => {
 });
 
 // Delete a court (admin only)
-router.delete("/:id", authMiddleware, async (req, res) => {
+router.delete("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     await Court.findByIdAndDelete(req.params.id);
     res.status(204).send();
