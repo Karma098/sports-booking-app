@@ -9,5 +9,5 @@ const sportSchema = new mongoose.Schema({
   },
   courts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Court" }],
 });
-
-module.exports = mongoose.model("Sport", sportSchema);
+const Sport = mongoose.model("Sport", sportSchema);
+module.exports = Sport;

@@ -6,4 +6,6 @@ const centerSchema = new mongoose.Schema({
   sports: [{ type: mongoose.Schema.Types.ObjectId, ref: "Sport" }],
 });
 
-module.exports = mongoose.model("Center", centerSchema);
+const Center = mongoose.model("Center", centerSchema);
+
+module.exports = Center;
