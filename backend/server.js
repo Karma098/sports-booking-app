@@ -6,6 +6,7 @@ const userRoutes = require("./routes/userRoutes");
 const centerRoutes = require("./routes/centerRoutes");
 const courtsRouter = require("./routes/courtRoutes");
 const bookingsRouter = require("./routes/bookingRoutes");
+const sportsRouter = require("./routes/sportRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +17,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/centers", centerRoutes);
 app.use("/courts", courtsRouter);
 app.use("/bookings", bookingsRouter);
+app.use("/sports", sportsRouter);
 
 mongoose
   .connect(process.env.MONGODB_URI, {
