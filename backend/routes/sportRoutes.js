@@ -6,10 +6,10 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const adminMiddleware = require("../middlewares/adminMiddleware");
 // Create a new sport (admin only)
 router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
-  const { name } = req.body;
+  const { name, center } = req.body;
 
   try {
-    const newSport = new Sport({ name });
+    const newSport = new Sport({ name, center });
     await newSport.save();
     res.status(201).json(newSport);
   } catch (error) {
