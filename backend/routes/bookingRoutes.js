@@ -15,19 +15,19 @@ router.post("/", authMiddleware, async (req, res) => {
       return res.status(404).json({ message: "Court not found" });
     }
 
-    console.log("Request Body:", req.body);
+    // console.log("Request Body:", req.body);
 
     const [startSlotTime, endSlotTime] = timeSlot
       .split(" - ")
       .map((time) => time.trim());
-    console.log(startSlotTime);
-    console.log(endSlotTime);
-    console.log(date);
+    // console.log(startSlotTime);
+    // console.log(endSlotTime);
+    // console.log(date);
     const startSlot = new Date(`${date}T${startSlotTime.replace(" ", ":")}:00`); // Adding seconds
     const endSlot = new Date(startSlot.getTime() + 60 * 60 * 1000); // Add 60 minutes
 
-    console.log("Parsed Start Slot: ", startSlot);
-    console.log("Parsed End Slot: ", endSlot);
+    // console.log("Parsed Start Slot: ", startSlot);
+    // console.log("Parsed End Slot: ", endSlot);
 
     if (isNaN(startSlot.getTime()) || isNaN(endSlot.getTime())) {
       return res.status(400).json({ message: "Invalid date or time format" });
